@@ -1,4 +1,4 @@
-param([string]$file, [string]$cwd, [string]$tools)
+param([string]$filename, [string]$cwd, [string]$tools)
 
 $pathTo7ZipModule = "$tools\lib\7Zip4Powershell\1.8.0\7Zip4PowerShell.psd1"
 if (-not (Test-Path $pathTo7ZipModule)) {
@@ -6,7 +6,7 @@ if (-not (Test-Path $pathTo7ZipModule)) {
 }
 
 function Main {
-    Untar $file
+    Untar $filename
 }
 
 function Untar {

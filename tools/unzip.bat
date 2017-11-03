@@ -3,4 +3,4 @@
 
 @call lib\validate_powershell.bat
 
-powershell -executionpolicy bypass -file %TOOLS%\unzip.ps1 -file %1 -cwd %CWS% -tools %TOOLS%
+powershell -executionpolicy bypass -file %TOOLS%lib\unzip.ps1 -filename %1 -cwd %CWD% -tools %TOOLS%

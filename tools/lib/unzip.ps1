@@ -1,9 +1,9 @@
-param([string]$file, [string]$cwd, [string]$tools)
+param([string]$filename, [string]$cwd, [string]$tools)
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 function Main {
-    Unzip $file
+    Unzip $filename
 }
 
 function Unzip {

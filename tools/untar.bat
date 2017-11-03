@@ -3,4 +3,4 @@
 
 @call lib\validate_powershell.bat
 
-powershell -executionpolicy bypass -file %TOOLS%\untar.ps1 -file %1 -cwd %CWD% -tools %TOOLS%
+powershell -executionpolicy bypass -file %TOOLS%lib\untar.ps1 -filename %1 -cwd %CWD% -tools %TOOLS%

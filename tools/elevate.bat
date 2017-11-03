@@ -3,4 +3,4 @@
 
 @call lib\validate_powershell.bat
 
-powershell -executionpolicy bypass -file %TOOLS%\elevate.ps1 -cmd %1 -cwd %CWD% -tools %TOOLS%
+powershell -executionpolicy bypass -file %TOOLS%lib\elevate.ps1 -cmd %1 -cwd %CWD% -tools %TOOLS%
