@@ -15,7 +15,7 @@ if ((Check-Admin) -eq $false)  {
         Start-Process powershell.exe -Verb RunAs -ArgumentList ("-noprofile -noexit -executionpolicy bypass -file $PSScriptRoot\elevate.ps1 -cmd `"$cmd`" -cwd $cwd -tools $tools -elevated" -f ($myinvocation.MyCommand.Definition))
         Write-Output "Process elevated in another shell . . ."
     }
-    exit
+    stop-process -Id $PID
 }
 cmd.exe /c "cd $cwd && $cmd"
-exit
+stop-process -Id $PID

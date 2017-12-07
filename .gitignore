@@ -1,8 +1,9 @@
 # Application
-tools\lib\7Zip4Powershell
+tools/lib/7Zip4Powershell
 
 # Editor
 .idea/
 \#*\#
 .\#*
 *~
+
