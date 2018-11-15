@@ -1,29 +1,42 @@
-param([string]$url, [string]$name, [string]$cwd, [string]$tools)
+param([string]$uri, [string]$name = '', [string]$cwd = '.')
+if ($name -eq '') {
+    $regex = [regex]'[^/]*$'
+    $name = $regex.Match($uri)[0].value
+}
+function Sanitize {
+    param([string]$str)
+    $str = $str -replace '` ', ' '
+    $str = $str -replace ' ', '` '
+    return $str
+}
+$uri = Sanitize $uri
+$name = Sanitize $name
 
 function Main {
-    Download-File $url $name
+    Download-File $uri $name
 }
 
 function Download-File {
-    param([string]$url, [string]$fileName)
+    param([string]$uri, [string]$fileName)
+    "Downloading $uri"
     $downloadPath = "$cwd\$fileName"
-    $start_time = Get-Date
-    Write-Output "Downloading $url"
+    $startTime = Get-Date
     $proxyUri = [Uri]$null
-    $proxy = [System.Net.WebRequest]::GetSystemWebProxy()
-    if ($proxy) {
-        $proxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
-
-        $proxyUri = $proxy.GetProxy("$url")
+    if ($IsWindows) {
+        $proxy = [System.Net.WebRequest]::GetSystemWebProxy()
+        if ($proxy) {
+            $proxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
+            $proxyUri = $proxy.GetProxy($uri)
+        }
     }
-    if ("$proxyUri" -ne "$server$url") {
-        Write-Host "Using proxy: $proxyUri"
-        Invoke-WebRequest -Uri $url -OutFile $downloadPath -Proxy $proxyUri -ProxyUseDefaultCredentials
+    if ($proxyUri) {
+        "Using proxy: $proxyUri"
+        Invoke-WebRequest -Uri $uri -OutFile $downloadPath -Proxy $proxyUri -ProxyUseDefaultCredentials
     } else {
-        Invoke-WebRequest -Uri $url -OutFile $downloadPath
+        Invoke-WebRequest -Uri $uri -OutFile $downloadPath
     }
-    Write-Output "Writing to $output"
-    Write-Output "Time taken: $((Get-Date).Subtract($start_time).Seconds) second(s)"
+    "Writing to $downloadPath"
+    "Time taken: $((Get-Date).Subtract($startTime).Seconds) second(s)"
 }
 
 Main
