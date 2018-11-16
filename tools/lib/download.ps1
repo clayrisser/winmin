@@ -1,4 +1,4 @@
-param([string]$uri, [string]$name = '', [string]$cwd = '.')
+param([string]$uri, [string]$name = '', [string]$cwd = '.', [string]$tools)
 if ($name -eq '') {
     $regex = [regex]'[^/]*$'
     $name = $regex.Match($uri)[0].value
@@ -11,6 +11,7 @@ function Sanitize {
 }
 $uri = Sanitize $uri
 $name = Sanitize $name
+$tools = Sanitize $tools
 
 function Main {
     Download-File $uri $name
