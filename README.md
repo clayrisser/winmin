@@ -2,6 +2,8 @@
 
 Minimalistic tooling for Windows command prompt
 
+![](assets/winmin.png)
+
 ## Usage
 
 ```sh
